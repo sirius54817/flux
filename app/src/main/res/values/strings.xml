@@ -55,6 +55,12 @@
 
     <!-- Preference about page -->
     <string name="preferences_about_page">About Flux</string>
+    <string name="about_tagline">A fun, open-source browser project</string>
+    <string name="about_developer">Developed by sirius54817\nSingle developer · Passion project ❤️</string>
+
+    <!-- Add-ons preference in Settings -->
+    <string name="preferences_addons">Extensions</string>
+    <string name="preferences_addons_summary">Manage your installed extensions</string>
 
     <!-- Preference for signing in -->
     <string name="sign_in">Sign in</string>

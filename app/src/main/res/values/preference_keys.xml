@@ -27,4 +27,5 @@
     <string name="pref_key_override_amo_user" translatable="false">pref_key_override_amo_user</string>
     <string name="pref_key_compose_ui" translatable="false">pref_key_compose_ui</string>
     <string name="pref_key_search_engine" translatable="false">pref_key_search_engine</string>
+    <string name="pref_key_addons" translatable="false">pref_key_addons</string>
 </resources>

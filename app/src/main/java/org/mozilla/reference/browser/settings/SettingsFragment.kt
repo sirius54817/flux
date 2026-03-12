@@ -24,12 +24,14 @@ import mozilla.components.service.fxa.manager.SCOPE_SYNC
 import mozilla.components.support.ktx.android.view.showKeyboard
 import org.mozilla.reference.browser.R
 import org.mozilla.reference.browser.R.string.pref_key_about_page
+import org.mozilla.reference.browser.R.string.pref_key_addons
 import org.mozilla.reference.browser.R.string.pref_key_firefox_account
 import org.mozilla.reference.browser.R.string.pref_key_make_default_browser
 import org.mozilla.reference.browser.R.string.pref_key_override_amo_collection
 import org.mozilla.reference.browser.R.string.pref_key_pair_sign_in
 import org.mozilla.reference.browser.R.string.pref_key_privacy
 import org.mozilla.reference.browser.R.string.pref_key_remote_debugging
+
 import org.mozilla.reference.browser.R.string.pref_key_search_engine
 import org.mozilla.reference.browser.R.string.pref_key_sign_in
 import org.mozilla.reference.browser.autofill.AutofillPreference
@@ -72,6 +74,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
         val searchEngineKey = requireContext().getPreferenceKey(pref_key_search_engine)
+        val addonsKey = requireContext().getPreferenceKey(pref_key_addons)
 
         val preferenceSignIn = findPreference<Preference>(signInKey)
         val preferencePairSignIn = findPreference<Preference>(signInPairKey)
@@ -83,6 +86,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
         val preferenceSearchEngine = findPreference<Preference>(searchEngineKey)
+        val preferenceAddons = findPreference<Preference>(addonsKey)
 
         val accountManager = requireComponents.backgroundServices.accountManager
         if (accountManager.authenticatedAccount() != null) {
@@ -126,6 +130,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .addToBackStack(null)
                 .commit()
             getActionBarUpdater().updateTitle(R.string.search_engine_settings)
+            true
+        }
+
+        preferenceAddons?.onPreferenceClickListener = OnPreferenceClickListener {
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, AddonsSettingsFragment())
+                .addToBackStack(null)
+                .commit()
+            getActionBarUpdater().updateTitle(R.string.preferences_addons)
             true
         }
     }

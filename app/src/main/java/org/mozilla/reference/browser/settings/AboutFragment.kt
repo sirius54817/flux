@@ -16,8 +16,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.pm.PackageInfoCompat
-import androidx.core.text.HtmlCompat
-import androidx.core.text.HtmlCompat.FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM
 import androidx.fragment.app.Fragment
 import mozilla.components.Build
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID
@@ -31,50 +29,33 @@ class AboutFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? = inflater.inflate(R.layout.fragment_about, container, false)
 
-    override fun onViewCreated(
-        view: View,
-        savedInstanceState: Bundle?,
-    ) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val appName = requireContext().resources.getString(R.string.app_name)
         (activity as AppCompatActivity).title = getString(R.string.preferences_about_page)
 
-        val aboutText = try {
-            val packageInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
-            val geckoVersion = PackageInfoCompat.getLongVersionCode(packageInfo).toString() + " GV: " +
-                MOZ_APP_VERSION + "-" + MOZ_APP_BUILDID
-            String.format(
-                "%s (Build #%s)\n",
-                packageInfo.versionName,
-                geckoVersion,
-            )
+        // Version string
+        val versionName = try {
+            val packageInfo = requireContext().packageManager
+                .getPackageInfo(requireContext().packageName, 0)
+            val buildCode = PackageInfoCompat.getLongVersionCode(packageInfo)
+            "v${packageInfo.versionName} (build $buildCode)\nGeckoView $MOZ_APP_VERSION-$MOZ_APP_BUILDID"
         } catch (e: PackageManager.NameNotFoundException) {
-            ""
+            "Unknown version"
         }
 
-        val versionInfo = String.format(
-            "%s \uD83D\uDCE6: %s, %s\n\uD83D\uDEA2: %s",
-            aboutText,
-            Build.VERSION,
-            Build.GIT_HASH,
-            Build.APPLICATION_SERVICES_VERSION,
-        )
-        val content = HtmlCompat.fromHtml(
-            resources.getString(R.string.about_content, appName),
-            FROM_HTML_SEPARATOR_LINE_BREAK_LIST_ITEM,
-        )
+        val acVersion = "AC: ${Build.VERSION}  •  ${Build.GIT_HASH}\nApp-Services: ${Build.APPLICATION_SERVICES_VERSION}"
 
-        val aboutView = view.findViewById<TextView>(R.id.about_content)
-        aboutView.text = content
+        view.findViewById<TextView>(R.id.about_app_name).text = getString(R.string.app_name)
+        view.findViewById<TextView>(R.id.about_tagline).text = getString(R.string.about_tagline)
+        view.findViewById<TextView>(R.id.about_developer).text = getString(R.string.about_developer)
+        view.findViewById<TextView>(R.id.about_version).text = versionName
+        view.findViewById<TextView>(R.id.about_ac_version).text = acVersion
 
-        val versionInfoView = view.findViewById<TextView>(R.id.version_info)
-        versionInfoView.text = versionInfo
-
-        versionInfoView.setOnClickListener { v ->
-            val clipBoard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipBoard.setPrimaryClip(ClipData.newPlainText(versionInfo, versionInfo))
-
+        // Tap version to copy
+        view.findViewById<TextView>(R.id.about_version).setOnClickListener {
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.setPrimaryClip(ClipData.newPlainText("version", "$versionName\n$acVersion"))
             Toast.makeText(requireContext(), getString(R.string.toast_copied), Toast.LENGTH_SHORT).show()
         }
     }

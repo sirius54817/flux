@@ -66,6 +66,11 @@
         android:title="@string/mozilla_category">
 
         <androidx.preference.Preference
+            android:key="@string/pref_key_addons"
+            android:title="@string/preferences_addons"
+            android:summary="@string/preferences_addons_summary"/>
+
+        <androidx.preference.Preference
             android:key="@string/pref_key_about_page"
             android:title="@string/preferences_about_page" />
 
