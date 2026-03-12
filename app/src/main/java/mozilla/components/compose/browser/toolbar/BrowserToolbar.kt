@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.lib.state.observeAsState
 import org.mozilla.reference.browser.compose.browserStore
@@ -44,6 +45,12 @@ fun BrowserToolbar() {
     }
 }
 
+@Preview(showBackground = true, name = "Display Toolbar")
+@Composable
+fun BrowserDisplayToolbarPreview() {
+    BrowserDisplayToolbar(url = "https://www.mozilla.org")
+}
+
 @Composable
 fun BrowserDisplayToolbar(
     url: String,
@@ -54,6 +61,12 @@ fun BrowserDisplayToolbar(
         modifier = Modifier.clickable { onUrlClicked() },
         maxLines = 1,
     )
+}
+
+@Preview(showBackground = true, name = "Edit Toolbar")
+@Composable
+fun BrowserEditToolbarPreview() {
+    BrowserEditToolbar(url = "https://www.mozilla.org")
 }
 
 @Composable
