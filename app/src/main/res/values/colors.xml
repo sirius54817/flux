@@ -3,15 +3,47 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="dark">#ff212121</color>
-    <color name="evenDarker">#ff1a1a1a</color>
-    <color name="accent">#ff00BCD4</color>
 
-    <color name="toolbarBackgroundColor">@color/evenDarker</color>
-    <color name="toolbarUrlBoxColor">#333333</color>
+    <!-- ── shadcn/ui Zinc Dark palette ── -->
+    <!-- background: zinc-950 -->
+    <color name="flux_background">#09090b</color>
+    <!-- card / surface: zinc-900 -->
+    <color name="flux_card">#18181b</color>
+    <!-- elevated surface: zinc-800 -->
+    <color name="flux_surface">#27272a</color>
+    <!-- subtle muted: zinc-700 -->
+    <color name="flux_muted">#3f3f46</color>
+    <!-- border / divider: zinc-700 -->
+    <color name="flux_border">#3f3f46</color>
+    <!-- input field bg: zinc-800 -->
+    <color name="flux_input">#27272a</color>
 
-    <color name="icons">#ffffffff</color>
+    <!-- foreground text: zinc-50 -->
+    <color name="flux_foreground">#fafafa</color>
+    <!-- muted foreground: zinc-400 -->
+    <color name="flux_muted_foreground">#a1a1aa</color>
+    <!-- placeholder: zinc-500 -->
+    <color name="flux_placeholder">#71717a</color>
 
-    <!-- Overriding color of tab counter icon in toolbar -->
-    <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/icons</color>
+    <!-- primary action (white button) -->
+    <color name="flux_primary">#fafafa</color>
+    <color name="flux_primary_foreground">#18181b</color>
+
+    <!-- destructive: red-500 -->
+    <color name="flux_destructive">#ef4444</color>
+
+    <!-- ring / focus: zinc-300 -->
+    <color name="flux_ring">#d4d4d8</color>
+
+    <!-- ── legacy aliases used by components ── -->
+    <color name="dark">@color/flux_background</color>
+    <color name="evenDarker">@color/flux_card</color>
+    <color name="accent">@color/flux_ring</color>
+    <color name="toolbarBackgroundColor">@color/flux_card</color>
+    <color name="toolbarUrlBoxColor">@color/flux_input</color>
+    <color name="icons">@color/flux_foreground</color>
+
+    <!-- Tab counter tint override -->
+    <color name="mozac_ui_tabcounter_default_tint" tools:ignore="UnusedResources">@color/flux_foreground</color>
+
 </resources>

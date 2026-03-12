@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.feature.session.SessionUseCases
+import mozilla.components.feature.search.SearchUseCases
 import org.mozilla.reference.browser.ext.components
 
 /**
@@ -18,3 +19,7 @@ fun browserStore(): BrowserStore = LocalContext.current.components.core.store
 
 @Composable
 fun sessionUseCases(): SessionUseCases = LocalContext.current.components.useCases.sessionUseCases
+
+@Composable
+fun searchUseCases(): SearchUseCases = LocalContext.current.components.useCases.searchUseCases
+

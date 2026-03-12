@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!-- shadcn/ui card-style tab tray item -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layout_height="72dp"
+    android:background="@color/flux_background">
 
+    <!-- Thumbnail card: zinc-900, 1dp border, 6dp radius -->
     <androidx.cardview.widget.CardView
         android:id="@+id/mozac_browser_tabstray_card"
         android:layout_width="100dp"
         android:layout_height="56dp"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="@color/photonWhite">
+        app:cardBackgroundColor="@color/flux_card"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/flux_border"
+        app:strokeWidth="1dp">
 
         <mozilla.components.browser.tabstray.thumbnail.TabThumbnailView
             android:id="@+id/mozac_browser_tabstray_thumbnail"
@@ -26,48 +30,53 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!-- Tab title: zinc-50, 14sp, medium weight -->
     <TextView
         android:id="@+id/mozac_browser_tabstray_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:ellipsize="end"
         android:lines="1"
-        android:textSize="16sp"
-        android:paddingTop="16dp"
-        android:paddingStart="8dp"
+        android:textSize="14sp"
+        android:textColor="@color/flux_foreground"
+        android:textStyle="normal"
+        android:fontFamily="sans-serif-medium"
+        android:paddingTop="14dp"
+        android:paddingStart="12dp"
         android:paddingEnd="8dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintEnd_toStartOf="@id/mozac_browser_tabstray_close"
         app:layout_constraintStart_toEndOf="@id/mozac_browser_tabstray_card"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Tab URL: zinc-400, 12sp -->
     <TextView
         android:id="@+id/mozac_browser_tabstray_url"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_alignParentTop="true"
         android:ellipsize="end"
         android:lines="1"
-        android:paddingStart="8dp"
+        android:textSize="12sp"
+        android:textColor="@color/flux_muted_foreground"
+        android:paddingStart="12dp"
         android:paddingEnd="8dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintEnd_toStartOf="@id/mozac_browser_tabstray_close"
         app:layout_constraintStart_toEndOf="@id/mozac_browser_tabstray_card"
         app:layout_constraintTop_toBottomOf="@id/mozac_browser_tabstray_title" />
 
+    <!-- Close button: zinc-400 tint -->
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/mozac_browser_tabstray_close"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/mozac_browser_tabstray_close_tab"
         android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:tint="@color/flux_muted_foreground"
         app:srcCompat="@drawable/mozac_ic_cross_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

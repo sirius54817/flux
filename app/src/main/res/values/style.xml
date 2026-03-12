@@ -3,32 +3,103 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ── Base Flux theme (shadcn/ui zinc dark) ── -->
     <style name="AppThemeNotActionBar" parent="Theme.Material3.Dark.NoActionBar">
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
-        <item name="colorPrimary">@color/dark</item>
-        <item name="colorPrimaryDark">@color/evenDarker</item>
-        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/flux_foreground</item>
+        <item name="colorPrimaryDark">@color/flux_card</item>
+        <item name="colorPrimaryContainer">@color/flux_surface</item>
+        <item name="colorOnPrimary">@color/flux_primary_foreground</item>
+        <item name="colorSecondary">@color/flux_muted_foreground</item>
+        <item name="colorAccent">@color/flux_ring</item>
+        <item name="colorSurface">@color/flux_card</item>
+        <item name="colorOnSurface">@color/flux_foreground</item>
+        <item name="colorError">@color/flux_destructive</item>
 
-        <item name="android:navigationBarColor">@color/evenDarker</item>
-        <item name="android:windowBackground">@color/dark</item>
+        <item name="android:textColorPrimary">@color/flux_foreground</item>
+        <item name="android:textColorSecondary">@color/flux_muted_foreground</item>
+        <item name="android:textColorHint">@color/flux_placeholder</item>
+
+        <item name="android:navigationBarColor">@color/flux_card</item>
+        <item name="android:statusBarColor">@color/flux_background</item>
+        <item name="android:windowBackground">@color/flux_background</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+
+        <!-- Sharp corners everywhere — shadcn style -->
+        <item name="shapeAppearanceSmallComponent">@style/Flux.ShapeSmall</item>
+        <item name="shapeAppearanceMediumComponent">@style/Flux.ShapeMedium</item>
+        <item name="shapeAppearanceLargeComponent">@style/Flux.ShapeLarge</item>
+    </style>
+
+    <style name="AppTheme" parent="AppThemeNotActionBar" />
+
+    <style name="AddonsActivityTheme" parent="AppThemeNotActionBar">
+        <item name="mozac_primary_text_color">@color/flux_foreground</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.Material3.Dark">
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    <!-- ── Base Flux style required as implicit parent for Flux.xxx styles ── -->
+    <style name="Flux" parent="Theme.Material3.Dark.NoActionBar" />
 
-        <item name="colorPrimary">@color/dark</item>
-        <item name="colorPrimaryDark">@color/evenDarker</item>
-        <item name="colorAccent">@color/accent</item>
-
-        <item name="android:navigationBarColor">@color/evenDarker</item>
-        <item name="android:windowBackground">@color/dark</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+    <!-- ── shadcn corner radius = 6dp (rounded-md) ── -->
+    <style name="Flux.ShapeSmall" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
+    </style>
+    <style name="Flux.ShapeMedium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
+    </style>
+    <style name="Flux.ShapeLarge" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">6dp</item>
     </style>
 
-    <style name="AddonsActivityTheme" parent="AppTheme">
-        <item name="mozac_primary_text_color">@color/photonDarkGrey90</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+    <!-- ── shadcn Button: zinc-50 bg, zinc-900 text, 6dp radius ── -->
+    <style name="Flux.Button" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/flux_primary</item>
+        <item name="android:textColor">@color/flux_primary_foreground</item>
+        <item name="cornerRadius">6dp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:minHeight">36dp</item>
     </style>
+
+    <!-- ── shadcn Input: zinc-800 bg, zinc-700 border, 6dp radius ── -->
+    <style name="Flux.TextInput" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@color/flux_input</item>
+        <item name="boxStrokeColor">@color/flux_border</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxCornerRadiusTopStart">6dp</item>
+        <item name="boxCornerRadiusTopEnd">6dp</item>
+        <item name="boxCornerRadiusBottomStart">6dp</item>
+        <item name="boxCornerRadiusBottomEnd">6dp</item>
+        <item name="hintTextColor">@color/flux_placeholder</item>
+        <item name="android:textColorHint">@color/flux_placeholder</item>
+    </style>
+
+    <!-- ── shadcn Card: zinc-900 bg, zinc-700 border, 6dp radius ── -->
+    <style name="Flux.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/flux_card</item>
+        <item name="cardCornerRadius">6dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/flux_border</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- ── Toolbar URL box style ── -->
+    <style name="Flux.ToolbarUrlBox">
+        <item name="android:background">@drawable/flux_url_box_bg</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:textColor">@color/flux_foreground</item>
+        <item name="android:textColorHint">@color/flux_placeholder</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>

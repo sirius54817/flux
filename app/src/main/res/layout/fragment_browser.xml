@@ -42,11 +42,11 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="bottom"
-        android:background="#000000"
-        mozac:findInPageQueryTextColor="#ffffff"
-        mozac:findInPageQueryHintTextColor="#dddddd"
-        mozac:findInPageResultCountTextColor="#ff88ff"
-        mozac:findInPageButtonsTint="#ff88ff"
+        android:background="@color/flux_card"
+        mozac:findInPageQueryTextColor="@color/flux_foreground"
+        mozac:findInPageQueryHintTextColor="@color/flux_placeholder"
+        mozac:findInPageResultCountTextColor="@color/flux_muted_foreground"
+        mozac:findInPageButtonsTint="@color/flux_foreground"
         android:visibility="gone"
         app:layout_behavior="org.mozilla.reference.browser.browser.FindInPageBarBehavior" />
 
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/browser_toolbar_height"
         android:layout_gravity="bottom"
-        android:background="@color/toolbarBackgroundColor" />
+        android:background="@drawable/flux_toolbar_bg" />
 
     <mozilla.components.feature.readerview.view.ReaderViewControlsBar
         android:id="@+id/readerViewBar"

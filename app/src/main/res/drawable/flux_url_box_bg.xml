@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
-   - License, v. 2.0. If a copy of the MPL was not distributed with this
-   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<!-- shadcn/ui Input style: zinc-800 bg, zinc-700 border, 6dp radius -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- shadcn input: zinc-800 bg, zinc-700 stroke, 6dp radius -->
     <solid android:color="@color/flux_input" />
     <stroke
         android:width="1dp"
         android:color="@color/flux_border" />
     <corners android:radius="6dp" />
 </shape>
+
