@@ -54,7 +54,7 @@
     <string name="preferences_global_privacy_control">Tell websites not to share &amp; sell data</string>
 
     <!-- Preference about page -->
-    <string name="preferences_about_page">About Reference Browser</string>
+    <string name="preferences_about_page">About Flux</string>
 
     <!-- Preference for signing in -->
     <string name="sign_in">Sign in</string>
@@ -157,11 +157,11 @@
      ]]></string>
 
     <!-- Title of the notification shown on app startup informing about the data policy -->
-    <string name="datareporting_notification_title">Reference Browser</string>
+    <string name="datareporting_notification_title">Flux</string>
 
     <!-- Summary of the notification shown on app startup informing about the data policy -->
-    <string name="datareporting_notification_summary">To improve your experience, Reference Browser automatically sends some information to Mozilla.</string>
-    
+    <string name="datareporting_notification_summary">To improve your experience, Flux automatically sends some information to Mozilla.</string>
+
     <string name="default_notification_channel">Browser</string>
 
     <!-- About content -->
@@ -197,6 +197,18 @@
     <!-- Reader View -->
     <!-- Content description for the button that opens reader view appearance controls -->
     <string name="reader_view_appearance_button">Reader view appearance</string>
+
+    <!-- Search Engine Preferences -->
+    <string name="search_engine_settings">Search engine</string>
+    <string name="search_engine_settings_summary">Choose your default search engine</string>
+    <string name="search_engine_default_label">Default: %s</string>
+    <string name="search_engine_dialog_title">Set default search engine</string>
+    <string name="search_engine_add_custom">Add custom search engine…</string>
+    <string name="search_engine_add_custom_title">Add search engine</string>
+    <string name="search_engine_add_custom_name_hint">Name (e.g. DuckDuckGo)</string>
+    <string name="search_engine_add_custom_url_hint">Search URL (use %s for query)</string>
+    <string name="search_engine_add_invalid_url">URL must contain %s</string>
+    <string name="search_engine_added">Search engine added</string>
 
     <!-- Add-on Preferences -->
     <!-- Preference to customize the configured AMO (addons.mozilla.org) collection -->

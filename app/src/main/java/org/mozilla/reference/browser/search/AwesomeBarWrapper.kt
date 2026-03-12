@@ -51,10 +51,10 @@ class AwesomeBarWrapper
             hiddenSuggestions = hiddenSuggestions.value,
             orientation = AwesomeBarOrientation.BOTTOM,
             colors = AwesomeBarDefaults.colors(
-                background = Color(0xff222222),
-                title = Color(0xffffffff),
-                description = Color(0xffdddddd),
-                autocompleteIcon = Color(0xffdddddd),
+                background = Color(0xFF18181B),  // zinc-900
+                title = Color(0xFFFAFAFA),       // zinc-50
+                description = Color(0xFFA1A1AA), // zinc-400
+                autocompleteIcon = Color(0xFFA1A1AA),
             ),
             onSuggestionClicked = { suggestion ->
                 suggestion.onSuggestionClicked?.invoke()

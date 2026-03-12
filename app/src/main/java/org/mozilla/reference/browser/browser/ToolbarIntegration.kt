@@ -237,11 +237,50 @@ class ToolbarIntegration(
         context.components.core.store,
         context.components.useCases.sessionUseCases.loadUrl,
         { searchTerms ->
-            context.components.useCases.searchUseCases.defaultSearch.invoke(
-                searchTerms = searchTerms,
-                searchEngine = null,
-                parentSessionId = null,
-            )
+            val store = context.components.core.store
+            val search = store.state.search
+            // Find the selected engine across both region and custom engines
+            val selectedId = search.userSelectedSearchEngineId
+                ?: search.regionDefaultSearchEngineId
+            val selectedEngine = if (selectedId != null) {
+                (search.regionSearchEngines + search.customSearchEngines)
+                    .firstOrNull { it.id == selectedId }
+            } else {
+                null
+            }
+
+            if (selectedEngine != null) {
+                // Build the search URL directly from the engine's resultUrls
+                val searchUrl = selectedEngine.resultUrls
+                    .firstOrNull()
+                    ?.replace("%s", java.net.URLEncoder.encode(searchTerms, "UTF-8"))
+                if (searchUrl != null) {
+                    context.components.useCases.sessionUseCases.loadUrl(searchUrl)
+                } else {
+                    // Engine has no URL template — try defaultSearch use case
+                    context.components.useCases.searchUseCases.defaultSearch.invoke(
+                        searchTerms = searchTerms,
+                        searchEngine = null,
+                        parentSessionId = null,
+                    )
+                }
+            } else {
+                // No engine selected yet — try the use case, then fall back to first available
+                try {
+                    context.components.useCases.searchUseCases.defaultSearch.invoke(
+                        searchTerms = searchTerms,
+                        searchEngine = null,
+                        parentSessionId = null,
+                    )
+                } catch (e: Exception) {
+                    val fallbackEngine = (search.regionSearchEngines + search.customSearchEngines)
+                        .firstOrNull()
+                    val url = fallbackEngine?.resultUrls?.firstOrNull()
+                        ?.replace("%s", java.net.URLEncoder.encode(searchTerms, "UTF-8"))
+                        ?: "https://yandex.com/search/?text=${java.net.URLEncoder.encode(searchTerms, "UTF-8")}"
+                    context.components.useCases.sessionUseCases.loadUrl(url)
+                }
+            }
         },
         sessionId,
     )

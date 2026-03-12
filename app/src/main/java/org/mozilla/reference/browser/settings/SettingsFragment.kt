@@ -30,6 +30,7 @@ import org.mozilla.reference.browser.R.string.pref_key_override_amo_collection
 import org.mozilla.reference.browser.R.string.pref_key_pair_sign_in
 import org.mozilla.reference.browser.R.string.pref_key_privacy
 import org.mozilla.reference.browser.R.string.pref_key_remote_debugging
+import org.mozilla.reference.browser.R.string.pref_key_search_engine
 import org.mozilla.reference.browser.R.string.pref_key_sign_in
 import org.mozilla.reference.browser.autofill.AutofillPreference
 import org.mozilla.reference.browser.ext.getPreferenceKey
@@ -70,6 +71,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val privacyKey = requireContext().getPreferenceKey(pref_key_privacy)
         val customAddonsKey = requireContext().getPreferenceKey(pref_key_override_amo_collection)
         val autofillPreferenceKey = requireContext().getPreferenceKey(R.string.pref_key_autofill)
+        val searchEngineKey = requireContext().getPreferenceKey(pref_key_search_engine)
 
         val preferenceSignIn = findPreference<Preference>(signInKey)
         val preferencePairSignIn = findPreference<Preference>(signInPairKey)
@@ -80,6 +82,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val preferencePrivacy = findPreference<Preference>(privacyKey)
         val preferenceCustomAddons = findPreference<Preference>(customAddonsKey)
         val preferenceAutofill = findPreference<AutofillPreference>(autofillPreferenceKey)
+        val preferenceSearchEngine = findPreference<Preference>(searchEngineKey)
 
         val accountManager = requireComponents.backgroundServices.accountManager
         if (accountManager.authenticatedAccount() != null) {
@@ -107,6 +110,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
         preferenceAboutPage?.onPreferenceClickListener = getAboutPageListener()
         preferencePrivacy?.onPreferenceClickListener = getClickListenerForPrivacy()
         preferenceCustomAddons?.onPreferenceClickListener = getClickListenerForCustomAddons()
+
+        // Search engine: show the currently selected engine as summary
+        val searchState = requireComponents.core.store.state.search
+        val selectedId = searchState.userSelectedSearchEngineId ?: searchState.regionDefaultSearchEngineId
+        val currentEngine = (searchState.regionSearchEngines + searchState.customSearchEngines)
+            .firstOrNull { it.id == selectedId }
+        if (currentEngine != null) {
+            preferenceSearchEngine?.summary = getString(R.string.search_engine_default_label, currentEngine.name)
+        }
+        preferenceSearchEngine?.onPreferenceClickListener = OnPreferenceClickListener {
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, SearchEngineSettingsFragment())
+                .addToBackStack(null)
+                .commit()
+            getActionBarUpdater().updateTitle(R.string.search_engine_settings)
+            true
+        }
     }
 
     private fun getClickListenerForMakeDefaultBrowser(): OnPreferenceClickListener =

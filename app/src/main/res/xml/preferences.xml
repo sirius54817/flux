@@ -43,6 +43,11 @@
         android:defaultValue="false"
         android:title="@string/preferences_compose_ui"/>
 
+    <androidx.preference.Preference
+        android:key="@string/pref_key_search_engine"
+        android:title="@string/search_engine_settings"
+        android:summary="@string/search_engine_settings_summary"/>
+
     <PreferenceCategory
         android:title="@string/developer_tools_category">
 
